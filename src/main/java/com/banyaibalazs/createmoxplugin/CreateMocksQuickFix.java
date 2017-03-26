@@ -90,13 +90,11 @@ class CreateMocksQuickFix extends BaseIntentionAction {
     }
 
     private void createMockFields(Project project, List<Mock> mocks) {
-        for (Mock mock : mocks) {
-            PsiField field = mock.asField(project);
-
-            if (field != null && !hasField(clazz, field)) {
-                clazz.add(field);
-            }
-        }
+        mocks.stream()
+                .map(mock -> mock.asField(project))
+                .filter(field -> field != null)
+                .filter(field -> !hasField(clazz, field))
+                .forEach(field -> clazz.add(field));
     }
 
     private boolean hasField(PsiClass clazz, @NotNull PsiField field) {
