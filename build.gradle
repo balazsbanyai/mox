@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.2.5"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+
+
+intellij {
+    //version 'IC-2017.1' //IntelliJ IDEA 2016.3 dependency; for a full list of IntelliJ IDEA releases please see https://www.jetbrains.com/intellij-repository/releases
+    pluginName 'mox'
+}
+
+group 'com.banyaibalazs.mox'
+version '1.0.0' // Plugin version
