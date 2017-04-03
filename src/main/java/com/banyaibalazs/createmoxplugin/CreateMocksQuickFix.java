@@ -12,12 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 class CreateMocksQuickFix extends BaseIntentionAction {
     private PsiClass clazz;
-    private PsiParameterList psiParameterList;
     private PsiConstructorCall call;
 
-    CreateMocksQuickFix(PsiClass clazz, PsiParameterList psiParameterList, PsiConstructorCall call) {
+    CreateMocksQuickFix(PsiClass clazz, PsiConstructorCall call) {
         this.clazz = clazz;
-        this.psiParameterList = psiParameterList;
         this.call = call;
     }
 
@@ -51,7 +49,7 @@ class CreateMocksQuickFix extends BaseIntentionAction {
                 return;
             }
 
-            Fix fix = new Fix(project, file, clazz, psiParameterList, call);
+            Fix fix = new Fix(project, file, clazz, call);
 
 
 

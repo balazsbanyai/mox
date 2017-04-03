@@ -16,8 +16,8 @@ public class MissingMockAnnotator implements Annotator {
             if (countOfActualArgs != parameterList.getParametersCount()) {
                 PsiClass clazz = PsiTreeUtil.getParentOfType(element, PsiClass.class);
                 holder
-                        .createErrorAnnotation(element.getTextRange(), "Create mox for this element")
-                        .registerFix(new CreateMocksQuickFix(clazz, parameterList, psiConstructorCall));
+                        .createErrorAnnotation(element.getTextRange(), "Create mocks for this element")
+                        .registerFix(new CreateMocksQuickFix(clazz, psiConstructorCall));
             }
         }
     }
