@@ -3,8 +3,15 @@ package com.banyaibalazs.createmoxplugin;
 import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiConstructorCall;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiExpressionList;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiParameterList;
 import com.intellij.util.ThrowableRunnable;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -28,15 +35,16 @@ class Fix implements ThrowableRunnable<RuntimeException> {
 
     @Override
     public void run() {
-        Stream.of(psiParameterList.getParameters())
+        String argList = Stream.of(psiParameterList.getParameters())
                 .map(Mock::fromParameter)
                 .map(mock -> mock.asField(project))
                 .filter(Objects::nonNull)
                 .filter(this::classHasField)
                 .peek(clazz::add)
                 .map(NavigationItem::getName)
-                .collect(Collectors.toSet())
-                .forEach(this::createConstructorCall);
+                .collect(Collectors.joining(", "));
+
+        createConstructorCall(argList);
     }
 
     private void createConstructorCall(String argumentList) {

@@ -20,4 +20,4 @@ intellij {
 }
 
 group 'com.banyaibalazs.mox'
-version '1.0.1' // Plugin version
+version '1.0.2' // Plugin version
